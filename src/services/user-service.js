@@ -18,12 +18,7 @@ class UserService{
             throw error;
         }
         console.log("something went wrong in the service layer");
-        throw new AppErrors(
-            'ServerError',
-            'Something went wrong in the service',
-            'Logical Issues found',
-            500
-            );
+        throw error;
        }
     }
     async signIn(email,plainPassword){
@@ -47,6 +42,9 @@ class UserService{
        
         }
         catch(error){
+            if(error.name=='AttributeNotFound'){
+                throw error;  
+            }
          console.log("something went wrong in the sign in process");
          throw error;
         }
